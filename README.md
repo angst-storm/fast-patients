@@ -1,7 +1,7 @@
 # FAST PATIENTS
 
 <p align="center">
-    <img src="images/banner.png" alt="logo">
+    <img src="images/banner.jpg" alt="logo">
 </p>
 
 Автор - Киприн Сергей.
