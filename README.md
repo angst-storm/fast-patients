@@ -1,5 +1,9 @@
 # FAST PATIENTS
 
+<p align="center">
+    <img src="images/banner.png" alt="logo">
+</p>
+
 Автор - Киприн Сергей.
 
 Тема 15. REST API - информационная система районной поликлиники. Учет пациентов.
