@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from .db import Patient
 
 
@@ -6,10 +6,13 @@ app = FastAPI()
 
 
 @app.get("/patients")
-def read_root():
-    return [Patient(**{"id": 1, "name": "test"})]
+def patient_list():
+    return Patient.all()
 
 
 @app.get("/patients/{patient_id}")
-def read_item(patient_id: int):
-    return Patient(**{"id": patient_id, "name": "test"})
+def patient_select(patient_id: int):
+    result = Patient.select(patient_id)
+    if len(result) == 0:
+        raise HTTPException(status_code=404, detail="Patient not found")
+    return result

@@ -1,7 +1,10 @@
 install:
 	pip install -r requirements.txt
 
-init: install
+reset-db:
+	python -m src.reset_db
+
+init: install reset-db
 
 run:
 	fastapi dev src/api.py
