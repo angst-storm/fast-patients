@@ -11,8 +11,9 @@ class Patient(BaseModel):
 
     @staticmethod
     def all():
-        return db.all()
+        return [Patient(**p) for p in db.all()]
 
     @staticmethod
     def select(id: int):
-        return db.search(PatientQ.id == id)
+        result = db.get(PatientQ.id == id)
+        return Patient(**result) if result else None
