@@ -16,4 +16,4 @@
     - UPDATE изменение пациента
     - DELETE удаление пациента
 - автоматическая OpenAPI документация в Swagger
-- технологии: Python, FastAPI
+- технологии: Python, [FastAPI](https://github.com/fastapi/fastapi), [TinyDB](https://github.com/msiemens/tinydb)
