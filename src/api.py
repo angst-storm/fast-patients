@@ -1,6 +1,14 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import RedirectResponse
 from pydantic import BaseModel
+import itertools
+
+
+class PatientCreate(BaseModel):
+    first_name: str
+    middle_name: str
+    last_name: str
+    med_record_number: int
 
 
 class Patient(BaseModel):
@@ -11,7 +19,8 @@ class Patient(BaseModel):
     med_record_number: int
 
 
-patients: dict[int, Patient] = {}
+ids = itertools.count()
+patients: list[Patient] = []
 app = FastAPI()
 
 
@@ -22,12 +31,19 @@ def index() -> RedirectResponse:
 
 @app.get("/patients")
 def patients_list() -> list[Patient]:
-    return list(patients.values())
+    return patients
+
+
+@app.post("/patients")
+def patients_create(data: PatientCreate) -> Patient:
+    patient = Patient(**data.model_dump(), id=ids.__next__())
+    patients.append(patient)
+    return patient
 
 
 @app.get("/patients/{patient_id}", responses={404: {}})
 def patients_select(patient_id: int) -> Patient:
-    result = patients.get(patient_id)
-    if not result:
+    result = [p for p in patients if p.id == patient_id]
+    if len(result) == 0:
         raise HTTPException(status_code=404, detail="Patient not found")
-    return result
+    return result[0]
