@@ -4,6 +4,153 @@
   "items": [
     {
       "type": "http",
+      "name": "create 1",
+      "seq": 3,
+      "request": {
+        "url": "http://localhost:8000/patients",
+        "method": "POST",
+        "headers": [],
+        "params": [],
+        "body": {
+          "mode": "json",
+          "json": "{\n  \"first_name\": \"Sergei\",\n  \"middle_name\": \"Andreevich\",\n  \"last_name\": \"Kiprin\",\n  \"med_record_number\": 66045102\n}",
+          "formUrlEncoded": [],
+          "multipartForm": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [
+          {
+            "name": "res.status",
+            "value": "eq 201",
+            "enabled": true,
+            "uid": "gYVnkmAbWz6ei5oBRzTfW"
+          },
+          {
+            "name": "res.body.id",
+            "value": "eq 0",
+            "enabled": true,
+            "uid": "jJCAu7JQ9EhkZ3gLlMXtd"
+          }
+        ],
+        "tests": "",
+        "auth": {
+          "mode": "none"
+        }
+      }
+    },
+    {
+      "type": "http",
+      "name": "create 2",
+      "seq": 4,
+      "request": {
+        "url": "http://localhost:8000/patients",
+        "method": "POST",
+        "headers": [],
+        "params": [],
+        "body": {
+          "mode": "json",
+          "json": "{\n  \"first_name\": \"Diana\",\n  \"middle_name\": \"Arturovna\",\n  \"last_name\": \"Gabbasova\",\n  \"med_record_number\": 66199198\n}",
+          "formUrlEncoded": [],
+          "multipartForm": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [
+          {
+            "name": "res.status",
+            "value": "eq 201",
+            "enabled": true,
+            "uid": "lnfQGRqFZs5bbzk1yWsym"
+          },
+          {
+            "name": "res.body.id",
+            "value": "eq 1",
+            "enabled": true,
+            "uid": "9Rik0rknNIuThTYR0PDav"
+          }
+        ],
+        "tests": "",
+        "auth": {
+          "mode": "none"
+        }
+      }
+    },
+    {
+      "type": "http",
+      "name": "delete",
+      "seq": 8,
+      "request": {
+        "url": "http://localhost:8000/patients/:id",
+        "method": "DELETE",
+        "headers": [],
+        "params": [
+          {
+            "name": "id",
+            "value": "0",
+            "type": "path",
+            "enabled": true
+          }
+        ],
+        "body": {
+          "mode": "none",
+          "formUrlEncoded": [],
+          "multipartForm": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [
+          {
+            "name": "res.status",
+            "value": "eq 200",
+            "enabled": true,
+            "uid": "14OxbDG4JRa48R9V4SelJ"
+          },
+          {
+            "name": "res.body.id",
+            "value": "eq 0",
+            "enabled": true,
+            "uid": "mO6plpnLaFTSx7mZKNHNY"
+          }
+        ],
+        "tests": "",
+        "auth": {
+          "mode": "none"
+        }
+      }
+    },
+    {
+      "type": "http",
+      "name": "docs",
+      "seq": 1,
+      "request": {
+        "url": "http://localhost:8000/openapi.json",
+        "method": "GET",
+        "headers": [],
+        "params": [],
+        "body": {
+          "mode": "none",
+          "formUrlEncoded": [],
+          "multipartForm": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [
+          {
+            "name": "res.status",
+            "value": "eq 200",
+            "enabled": true,
+            "uid": "kxlstUMFFP2fv9LOldGkP"
+          }
+        ],
+        "tests": "",
+        "auth": {
+          "mode": "none"
+        }
+      }
+    },
+    {
+      "type": "http",
       "name": "empty list",
       "seq": 2,
       "request": {
@@ -23,322 +170,13 @@
             "name": "res.body",
             "value": "isEmpty",
             "enabled": true,
-            "uid": "ImsQS9cXl1iZDolOR3n8h"
+            "uid": "FSpuLGFdt5PzcMXsGpQN3"
           },
           {
             "name": "res.status",
             "value": "eq 200",
             "enabled": true,
-            "uid": "1XuDnMB6GQmSj2oddkFo4"
-          }
-        ],
-        "tests": "",
-        "auth": {
-          "mode": "none"
-        }
-      }
-    },
-    {
-      "type": "http",
-      "name": "select",
-      "seq": 6,
-      "request": {
-        "url": "http://localhost:8000/patients/0",
-        "method": "GET",
-        "headers": [],
-        "params": [],
-        "body": {
-          "mode": "none",
-          "formUrlEncoded": [],
-          "multipartForm": []
-        },
-        "script": {},
-        "vars": {},
-        "assertions": [
-          {
-            "name": "res.status",
-            "value": "eq 200",
-            "enabled": true,
-            "uid": "1DVJsxlusX2IYTsthW5bt"
-          },
-          {
-            "name": "res.body.id",
-            "value": "eq 0",
-            "enabled": true,
-            "uid": "eObjKy7P51a5g9ndU249S"
-          }
-        ],
-        "tests": "",
-        "auth": {
-          "mode": "none"
-        }
-      }
-    },
-    {
-      "type": "http",
-      "name": "create 1",
-      "seq": 3,
-      "request": {
-        "url": "http://localhost:8000/patients/",
-        "method": "POST",
-        "headers": [],
-        "params": [],
-        "body": {
-          "mode": "json",
-          "json": "{\n  \"first_name\": \"Sergei\",\n  \"middle_name\": \"Andreevich\",\n  \"last_name\": \"Kiprin\",\n  \"med_record_number\": 66045102\n}",
-          "formUrlEncoded": [],
-          "multipartForm": []
-        },
-        "script": {},
-        "vars": {
-          "req": [
-            {
-              "name": "patient_id",
-              "value": "0",
-              "enabled": true,
-              "local": false
-            }
-          ]
-        },
-        "assertions": [
-          {
-            "name": "res.status",
-            "value": "eq 201",
-            "enabled": true,
-            "uid": "IEUiRenSJ7vyMk3a61Gqo"
-          },
-          {
-            "name": "res.body.id",
-            "value": "eq 0",
-            "enabled": true,
-            "uid": "94StQaqZJVTeSUfQWTRS3"
-          }
-        ],
-        "tests": "",
-        "auth": {
-          "mode": "none"
-        }
-      }
-    },
-    {
-      "type": "http",
-      "name": "delete",
-      "seq": 8,
-      "request": {
-        "url": "http://localhost:8000/patients/0",
-        "method": "DELETE",
-        "headers": [],
-        "params": [],
-        "body": {
-          "mode": "none",
-          "formUrlEncoded": [],
-          "multipartForm": []
-        },
-        "script": {},
-        "vars": {},
-        "assertions": [
-          {
-            "name": "res.status",
-            "value": "eq 200",
-            "enabled": true,
-            "uid": "nX0lxrXiL7FKdE4m74dHt"
-          },
-          {
-            "name": "res.body.id",
-            "value": "eq 0",
-            "enabled": true,
-            "uid": "NNrDIR5DWpCup6gMRJCM7"
-          }
-        ],
-        "tests": "",
-        "auth": {
-          "mode": "none"
-        }
-      }
-    },
-    {
-      "type": "http",
-      "name": "update",
-      "seq": 10,
-      "request": {
-        "url": "http://localhost:8000/patients/1",
-        "method": "PUT",
-        "headers": [],
-        "params": [],
-        "body": {
-          "mode": "json",
-          "json": "{\n  \"first_name\": \"Name\",\n  \"middle_name\": \"Patronymic\",\n  \"last_name\": \"Surname\",\n  \"med_record_number\": 66199998\n}",
-          "formUrlEncoded": [],
-          "multipartForm": []
-        },
-        "script": {},
-        "vars": {},
-        "assertions": [
-          {
-            "name": "res.status",
-            "value": "eq 200",
-            "enabled": true,
-            "uid": "PTOfkZbViLzKq7GAE8DhJ"
-          },
-          {
-            "name": "res.body.id",
-            "value": "eq 1",
-            "enabled": true,
-            "uid": "lenqYX2cuDIYTVZ6SuPvX"
-          },
-          {
-            "name": "res.body.first_name",
-            "value": "eq Name",
-            "enabled": true,
-            "uid": "HVDvtehTTqQyrIz47nhIf"
-          }
-        ],
-        "tests": "",
-        "auth": {
-          "mode": "none"
-        }
-      }
-    },
-    {
-      "type": "http",
-      "name": "list",
-      "seq": 5,
-      "request": {
-        "url": "http://localhost:8000/patients",
-        "method": "GET",
-        "headers": [],
-        "params": [],
-        "body": {
-          "mode": "none",
-          "formUrlEncoded": [],
-          "multipartForm": []
-        },
-        "script": {},
-        "vars": {},
-        "assertions": [
-          {
-            "name": "res.body",
-            "value": "length 2",
-            "enabled": true,
-            "uid": "NuIlwauP3a0w2WOfZOiz7"
-          },
-          {
-            "name": "res.status",
-            "value": "eq 200",
-            "enabled": true,
-            "uid": "DPml0hU0KS4YNrRC7vojJ"
-          }
-        ],
-        "tests": "",
-        "auth": {
-          "mode": "none"
-        }
-      }
-    },
-    {
-      "type": "http",
-      "name": "create 2",
-      "seq": 4,
-      "request": {
-        "url": "http://localhost:8000/patients/",
-        "method": "POST",
-        "headers": [],
-        "params": [],
-        "body": {
-          "mode": "json",
-          "json": "{\n  \"first_name\": \"Diana\",\n  \"middle_name\": \"Arturovna\",\n  \"last_name\": \"Gabbasova\",\n  \"med_record_number\": 66199198\n}",
-          "formUrlEncoded": [],
-          "multipartForm": []
-        },
-        "script": {},
-        "vars": {
-          "req": [
-            {
-              "name": "patient_id",
-              "value": "0",
-              "enabled": true,
-              "local": false
-            }
-          ]
-        },
-        "assertions": [
-          {
-            "name": "res.status",
-            "value": "eq 201",
-            "enabled": true,
-            "uid": "5xBbgFSYaXNFJG3aby8ak"
-          },
-          {
-            "name": "res.body.id",
-            "value": "eq 1",
-            "enabled": true,
-            "uid": "DxJ8r7arCfpSKYq4b4cwT"
-          }
-        ],
-        "tests": "",
-        "auth": {
-          "mode": "none"
-        }
-      }
-    },
-    {
-      "type": "http",
-      "name": "docs",
-      "seq": 1,
-      "request": {
-        "url": "http://localhost:8000/openapi.json",
-        "method": "GET",
-        "headers": [
-          {
-            "name": "Content-Type",
-            "value": "text/html",
-            "enabled": true
-          }
-        ],
-        "params": [],
-        "body": {
-          "mode": "none",
-          "formUrlEncoded": [],
-          "multipartForm": []
-        },
-        "script": {},
-        "vars": {},
-        "assertions": [
-          {
-            "name": "res.status",
-            "value": "eq 200",
-            "enabled": true,
-            "uid": "K86SmxMgC21m0pgPSNK57"
-          }
-        ],
-        "tests": "",
-        "auth": {
-          "mode": "none"
-        }
-      }
-    },
-    {
-      "type": "http",
-      "name": "select 404",
-      "seq": 7,
-      "request": {
-        "url": "http://localhost:8000/patients/999",
-        "method": "GET",
-        "headers": [],
-        "params": [],
-        "body": {
-          "mode": "none",
-          "formUrlEncoded": [],
-          "multipartForm": []
-        },
-        "script": {},
-        "vars": {},
-        "assertions": [
-          {
-            "name": "res.status",
-            "value": "eq 404",
-            "enabled": true,
-            "uid": "I3wj0meQbsebfQ98FfYsD"
+            "uid": "e3ZLLruf0EYZJAnVVkcOf"
           }
         ],
         "tests": "",
@@ -368,13 +206,86 @@
             "name": "res.body",
             "value": "length 1",
             "enabled": true,
-            "uid": "7qshi0P4HYixlW3ArqiTh"
+            "uid": "ntwGpkpuViaHgL47ypxZR"
           },
           {
             "name": "res.status",
             "value": "eq 200",
             "enabled": true,
-            "uid": "uX7DcS6ecor6aEwVJD4VQ"
+            "uid": "EEbA7FhWA249D4LzyuNGL"
+          }
+        ],
+        "tests": "",
+        "auth": {
+          "mode": "none"
+        }
+      }
+    },
+    {
+      "type": "http",
+      "name": "list",
+      "seq": 5,
+      "request": {
+        "url": "http://localhost:8000/patients",
+        "method": "GET",
+        "headers": [],
+        "params": [],
+        "body": {
+          "mode": "none",
+          "formUrlEncoded": [],
+          "multipartForm": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [
+          {
+            "name": "res.body",
+            "value": "length 2",
+            "enabled": true,
+            "uid": "V8ZShZiZWHVlapBsWp4Ej"
+          },
+          {
+            "name": "res.status",
+            "value": "eq 200",
+            "enabled": true,
+            "uid": "hbiXLidrQFm1duCIEYII8"
+          }
+        ],
+        "tests": "",
+        "auth": {
+          "mode": "none"
+        }
+      }
+    },
+    {
+      "type": "http",
+      "name": "select 404",
+      "seq": 7,
+      "request": {
+        "url": "http://localhost:8000/patients/:id",
+        "method": "GET",
+        "headers": [],
+        "params": [
+          {
+            "name": "id",
+            "value": "999",
+            "type": "path",
+            "enabled": true
+          }
+        ],
+        "body": {
+          "mode": "none",
+          "formUrlEncoded": [],
+          "multipartForm": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [
+          {
+            "name": "res.status",
+            "value": "eq 404",
+            "enabled": true,
+            "uid": "8mNyjnHw3GvFXlZskKNnl"
           }
         ],
         "tests": "",
@@ -404,19 +315,112 @@
             "name": "res.status",
             "value": "eq 200",
             "enabled": true,
-            "uid": "aZDE68PspCOxFNigpOtWR"
+            "uid": "zQS5tJ6dgfbo7YhDyI5Bh"
           },
           {
             "name": "res.body.id",
             "value": "eq 1",
             "enabled": true,
-            "uid": "4DASWz6OAL290yNw1jO9q"
+            "uid": "B0EAOIhflvWkK76ojZ8qX"
           },
           {
             "name": "res.body.first_name",
             "value": "eq Name",
             "enabled": true,
-            "uid": "bx7urHYOHC6ilMWmC8O3m"
+            "uid": "eL7qspCVwjVjQCnIGa9Px"
+          }
+        ],
+        "tests": "",
+        "auth": {
+          "mode": "none"
+        }
+      }
+    },
+    {
+      "type": "http",
+      "name": "select",
+      "seq": 6,
+      "request": {
+        "url": "http://localhost:8000/patients/:id",
+        "method": "GET",
+        "headers": [],
+        "params": [
+          {
+            "name": "id",
+            "value": "0",
+            "type": "path",
+            "enabled": true
+          }
+        ],
+        "body": {
+          "mode": "none",
+          "formUrlEncoded": [],
+          "multipartForm": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [
+          {
+            "name": "res.status",
+            "value": "eq 200",
+            "enabled": true,
+            "uid": "OcQ3rDKj9iq1bg1pYgbwF"
+          },
+          {
+            "name": "res.body.id",
+            "value": "eq 0",
+            "enabled": true,
+            "uid": "6H9JnR0bZQNBiTsutFCDD"
+          }
+        ],
+        "tests": "",
+        "auth": {
+          "mode": "none"
+        }
+      }
+    },
+    {
+      "type": "http",
+      "name": "update",
+      "seq": 10,
+      "request": {
+        "url": "http://localhost:8000/patients/:id",
+        "method": "PUT",
+        "headers": [],
+        "params": [
+          {
+            "name": "id",
+            "value": "1",
+            "type": "path",
+            "enabled": true
+          }
+        ],
+        "body": {
+          "mode": "json",
+          "json": "{\n  \"first_name\": \"Name\",\n  \"middle_name\": \"Patronymic\",\n  \"last_name\": \"Surname\",\n  \"med_record_number\": 66199998\n}",
+          "formUrlEncoded": [],
+          "multipartForm": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [
+          {
+            "name": "res.status",
+            "value": "eq 200",
+            "enabled": true,
+            "uid": "35W8bHqYyZf5YYn3Nixup"
+          },
+          {
+            "name": "res.body.id",
+            "value": "eq 1",
+            "enabled": true,
+            "uid": "wAkdrhlLmHAK68i6qt9Kr"
+          },
+          {
+            "name": "res.body.first_name",
+            "value": "eq Name",
+            "enabled": true,
+            "uid": "zrWQUKupgtgRe5cb8OXkB"
           }
         ],
         "tests": "",
