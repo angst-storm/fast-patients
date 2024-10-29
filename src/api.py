@@ -25,8 +25,10 @@ class Patient(BaseModel):
 patients: list[Patient] = []
 
 
-def find_patient(patient_id: int) -> tuple[int, Patient] | None:
-    return next(((i, p) for i, p in enumerate(patients) if p.id == patient_id), None)
+def find_patient(patient_id: int) -> tuple[int, Patient] | tuple[None, None]:
+    return next(
+        ((i, p) for i, p in enumerate(patients) if p.id == patient_id), (None, None)
+    )
 
 
 app = FastAPI()
@@ -42,7 +44,7 @@ def patients_list() -> list[Patient]:
     return patients
 
 
-@app.post("/patients")
+@app.post("/patients", status_code=201)
 def patient_create(data: PatientIn) -> Patient:
     patient = Patient(**data.model_dump(), id=next(ids))
     patients.append(patient)
