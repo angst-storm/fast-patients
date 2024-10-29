@@ -35,15 +35,24 @@ def patients_list() -> list[Patient]:
 
 
 @app.post("/patients")
-def patients_create(data: PatientCreate) -> Patient:
-    patient = Patient(**data.model_dump(), id=ids.__next__())
+def patient_create(data: PatientCreate) -> Patient:
+    patient = Patient(**data.model_dump(), id=next(ids))
     patients.append(patient)
     return patient
 
 
-@app.get("/patients/{patient_id}", responses={404: {}})
-def patients_select(patient_id: int) -> Patient:
-    result = [p for p in patients if p.id == patient_id]
-    if len(result) == 0:
+@app.delete("/patients/{patient_id}")
+def patient_delete(patient_id: int) -> Patient:
+    index = next((i for i, p in enumerate(patients) if p.id == patient_id), None)
+    if index is None:
         raise HTTPException(status_code=404, detail="Patient not found")
-    return result[0]
+    patient = patients.pop(index)
+    return patient
+
+
+@app.get("/patients/{patient_id}", responses={404: {}})
+def patient_select(patient_id: int) -> Patient:
+    patient = next((p for p in patients if p.id == patient_id), None)
+    if patient is None:
+        raise HTTPException(status_code=404, detail="Patient not found")
+    return patient
