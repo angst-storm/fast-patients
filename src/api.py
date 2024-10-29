@@ -3,8 +3,11 @@ from fastapi.responses import RedirectResponse
 from pydantic import BaseModel
 import itertools
 
+ids = itertools.count()
+NOT_FOUND_ERROR = HTTPException(status_code=404, detail="Patient not found")
 
-class PatientCreate(BaseModel):
+
+class PatientIn(BaseModel):
     first_name: str
     middle_name: str
     last_name: str
@@ -19,8 +22,13 @@ class Patient(BaseModel):
     med_record_number: int
 
 
-ids = itertools.count()
 patients: list[Patient] = []
+
+
+def find_patient(patient_id: int) -> tuple[int, Patient] | None:
+    return next(((i, p) for i, p in enumerate(patients) if p.id == patient_id), None)
+
+
 app = FastAPI()
 
 
@@ -35,24 +43,35 @@ def patients_list() -> list[Patient]:
 
 
 @app.post("/patients")
-def patient_create(data: PatientCreate) -> Patient:
+def patient_create(data: PatientIn) -> Patient:
     patient = Patient(**data.model_dump(), id=next(ids))
     patients.append(patient)
     return patient
 
 
-@app.delete("/patients/{patient_id}")
-def patient_delete(patient_id: int) -> Patient:
-    index = next((i for i, p in enumerate(patients) if p.id == patient_id), None)
-    if index is None:
-        raise HTTPException(status_code=404, detail="Patient not found")
-    patient = patients.pop(index)
+@app.get("/patients/{patient_id}", responses={404: {}})
+def patient_select(patient_id: int) -> Patient:
+    (_, patient) = find_patient(patient_id)
+    if patient is None:
+        raise NOT_FOUND_ERROR
     return patient
 
 
-@app.get("/patients/{patient_id}", responses={404: {}})
-def patient_select(patient_id: int) -> Patient:
-    patient = next((p for p in patients if p.id == patient_id), None)
-    if patient is None:
-        raise HTTPException(status_code=404, detail="Patient not found")
+@app.put("/patients/{patient_id}", responses={404: {}})
+def patient_update(patient_id: int, data: PatientIn) -> Patient:
+    (index, _) = find_patient(patient_id)
+    if index is None:
+        raise NOT_FOUND_ERROR
+    patient = patients.pop(index)
+    new_patient = patient.model_copy(update=data.model_dump())
+    patients.append(new_patient)
+    return new_patient
+
+
+@app.delete("/patients/{patient_id}", responses={404: {}})
+def patient_delete(patient_id: int) -> Patient:
+    (index, _) = find_patient(patient_id)
+    if index is None:
+        raise NOT_FOUND_ERROR
+    patient = patients.pop(index)
     return patient
